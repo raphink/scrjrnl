@@ -1,0 +1,410 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2012 by Raphaël Pinson <raphink@gmail.com>
+% ---------------------------------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Raphaël Pinson.
+%
+% This work consists of the files impnattypo.dtx and impnattypo.ins
+% and the derived filebase impnattypo.sty.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{scrjrnl.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesClass{scrjrnl}
+%<*package>
+    [2012/09/16 0.1 A class to typeset diaries or journals]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[english]{babel}
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\usepackage{metalogo}
+\usepackage[all]{nowidow}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{scrjrnl.dtx}
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{285}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1}{2012/09/16}{First version}
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+% \providecommand*{\url}{\texttt}
+% \GetFileInfo{scrjrnl.dtx}
+% \title{The \textsf{scrjrnl} class}
+% \author{Raphaël Pinson \\ \url{raphink@gmail.com}}
+% \date{\fileversion~from \filedate}
+%
+% \maketitle
+%
+% \section{Introduction}
+%
+% The \textsf{scrjrnl} class is based of the \textsf{scrbook} class,
+% and inherits all of its commands and settings.
+% Please refer to the Koma-Script documentation for the detail of
+% all of these. Note that the \textsf{scrjrnl} class is not an
+% official Koma-Script class.
+%
+% \section{Usage}
+%
+% \begin{verbatim}
+%    \documentclass[<options>]{scrjrnl}
+% \end{verbatim}
+%
+% \subsection{Options}
+%
+% The class options are described below.
+%
+% \DescribeMacro{monthpages}
+%
+% By default, the month pages are skiped and only the days are typeset.
+% If you wish to display a page for each starting month, use this setting.
+%
+% \DescribeMacro{fancytabs}
+%
+% This class can automatically make use of the \textsf{fancytabs} package
+% to typeset tabs on the side of every odd page, with the name of the current month.
+%
+% \subsection{The \texttt{journal} environment}
+%
+% The \texttt{journal} environment is the main addition of this class.
+% It provides an environment in which to typeset journal entries.
+%
+% The \texttt{journal} environment takes the following options:
+%
+% \DescribeMacro{startmonth}
+%
+% The month in which to start the journal. Defaults to 1.
+%
+% \DescribeMacro{startday}
+%
+% The day in which to start the journal. Defaults to 1.
+%
+% \subsection{Setting up a month}
+%
+% Once the \texttt{journal} environment in initiated, you can use
+% the \texttt{jrnlmonth} and \texttt{jrnlday} commands
+% to typeset journal entries.
+%
+% \DescribeMacro{\jrnlmonth}
+% 
+% The \verb!\jrnlmonth! command starts a new month. It takes the following options:
+%
+% \DescribeMacro{month}
+%
+% Forces the current month instead of simply incrementing from the previous one. This parameter is an integer between 1 and 12.
+%
+% \DescribeMacro{startday}
+%
+% Start month at a given day, instead of 1.
+%
+% \subsection{Typesetting a journal entry}
+%
+% \DescribeMacro{\jrnlday}
+%
+% In order to typeset a single journal entry, use the \verb!\jrnlday! command. This command takes a mandatory argument which is the journal entry's title, as well as the following options:
+%
+% \DescribeMacro{day}
+%
+% Forces the current day instead of simply incrementing from the preivous one. This parameter is an integer.
+%
+% \DescribeMacro{ante}
+%
+% Add a text before the date.
+%
+% \DescribeMacro{post}
+%
+% Add a text after the date.
+%
+% \subsection{Settings}
+%
+% You can tune the behavior of this class in various ways.
+%
+% \subsection{Index}
+%
+% Write here about generating a nice index.
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+% \iffalse
+%<*package>
+% \fi
+%
+%    \begin{macrocode}
+\ProvidesClass{scrjrnl}
+\DeclareOption{scrartcl}{\def\jrnl@class{scrartcl}}
+\DeclareOption{scrreprt}{\def\jrnl@class{scrreprt}}
+\DeclareOption{scrbook}{\def\jrnl@class{scrbook}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\jrnl@class}}
+\ExecuteOptions{scrbook}
+\newif\if@jrnl@monthpages
+\DeclareOption{monthpages}{\@jrnl@monthpagestrue}
+\newif\if@jrnl@fancytabs
+\DeclareOption{fancytabs}{\@jrnl@fancytabstrue}
+\ProcessOptions\relax
+\LoadClass{\jrnl@class}
+\RequirePackage{titlesec}
+%    \end{macrocode}
+%
+% \marginpar{Load datetime after babel}
+%
+%    \begin{macrocode}
+\AfterPackage!{babel}{\RequirePackage{datetime}}
+\newcommand\jrnlformatdate\formatdateny
+%    \end{macrocode}
+%
+% \marginpar{More datetime}
+%
+%    \begin{macrocode}
+% formatdate without year
+\def\formatdateny{\csname noyear\languagename\expandafter\endcsname\formatdate}
+
+\def\noyearenglish#1, \the\@year{#1}
+\let\noyearamerican\noyearenglish
+\let\noyearbritish\noyearenglish
+\def\noyearfrench#1\space\number\@year{#1}
+\let\noyeargerman\noyearfrench
+\let\noyearaustrian\noyeargerman
+\let\noyearswedish\noyearfrench
+\let\noyearbreton\noyearfrench
+\def\noyearrussian#1\ \number\@year~\cyrg.{#1}
+\def\noyearspanish#1\ de~\number\@year{#1}
+\let\noyearcatalan\noyearspanish
+\def\noyearbasque#1\number\@year.eko\space{#1}
+%    \end{macrocode}
+%
+% \marginpar{Set default lengths}
+%
+%    \begin{macrocode}
+\newlength{\jrnldaysepskip}
+\setlength{\jrnldaysepskip}{-\baselineskip}
+\newlength{\jrnldayafterskip}
+\setlength{\jrnldayafterskip}{\baselineskip}
+%    \end{macrocode}
+%
+% \marginpar{Load fancytabs}
+%
+%    \begin{macrocode}
+\if@jrnl@fancytabs
+  \RequirePackage{fancytabs}
+\fi
+%    \end{macrocode}
+%
+% \marginpar{Month names}
+%
+%    \begin{macrocode}
+\newcommand{\jrnl@monthname}[1]{\monthname[#1]}
+\newcommand{\jrnl@curmonth}{\jrnl@monthname{\thejrnlmonth}}
+%    \end{macrocode}
+%
+% \marginpar{Setup counters}
+%
+%    \begin{macrocode}
+\newcounter{jrnlstartchapter}
+\newcounter{jrnlday}
+\newcounter{jrnlmonth}
+\newcounter{jrnlyear}
+%    \end{macrocode}
+%
+% \marginpar{HTML hooks for TeX4HT}
+%
+%    \begin{macrocode}
+\newcommand{\HTMLchapHook}[1]{}
+\newcommand{\HTMLsecHook}[2]{}
+%    \end{macrocode}
+%
+% \marginpar{Define jrnlmonth}
+%
+%    \begin{macrocode}
+\newcounter{jrnlmonthstartday}
+\define@key{jrnlmonth}{month}{\setcounter{jrnlmonth}{#1}\addtocounter{jrnlmonth}{-1}}
+\define@key{jrnlmonth}{startday}{\setcounter{jrnlmonthstartday}{#1}\addtocounter{jrnlmonthstartday}{-1}}
+
+\newcommand{\jrnlmonth}[1][]{%
+  % Use \thejrnlstatday if first month of journal
+  \setcounter{jrnlmonthstartday}{\thejrnlstartday}%
+  \setcounter{jrnlstartday}{0}%
+  \setkeys{jrnlmonth}{#1}%
+  \stepcounter{jrnlmonth}%
+  \HTMLchapHook{\jrnl@curmonth}%
+  \if@jrnl@monthpages
+    \chapter{\jrnl@curmonth}%
+    \cleardoublepage%
+  \else
+    \refstepcounter{chapter}%
+    \@maybeautodot\thechapter
+    \addchaptertocentry{\thechapter}{\jrnl@curmonth}%
+  \fi
+  \setcounter{jrnlday}{\thejrnlmonthstartday}%
+}
+%    \end{macrocode}
+%
+%
+% \marginpar{Define jrnlday}
+%
+%    \begin{macrocode}
+\newcommand{\pagedate}{%
+  \jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
+}
+\define@key{jrnlday}{day}{\setcounter{jrnlday}{#1}\addtocounter{jrnlday}{-1}}
+\define@key{jrnlday}{ante}{\def\jrnlday@ante{#1}}
+\define@key{jrnlday}{post}{\def\jrnlday@post{#1}}
+
+\newcommand{\jrnlday}[2][]{%
+  \def\jrnlday@ante{}%
+  \def\jrnlday@post{}%
+  \setkeys{jrnlday}{#1}%
+  \stepcounter{jrnlday}%
+  \newpage\section{#2}%
+  % TODO: provide index macros to be used with jrnlpagedate\thepage
+  \expandafter\xdef\csname jrnlpagedate\thepage\endcsname{%
+    \noexpand\jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
+}%
+  \HTMLsecHook{\jrnlday@ante\jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}\jrnlday@post}{#2}%
+}
+%    \end{macrocode}
+%
+%
+% \marginpar{Define fonts}
+%
+%    \begin{macrocode}
+\newcommand\dayheadfont{}
+\newcommand\monthheadfont{}
+%    \end{macrocode}
+%
+%
+% \marginpar{Chapter/section styles}
+%
+%    \begin{macrocode}
+\newcommand\jrnl@titlestrut{\vrule height 25pt width0pt\relax}
+\newcommand{\jrnl@secstyle}{\filcenter\dayheadfont\huge}
+\newcommand{\jrnl@seclbl}{\raggedright\normalfont\scshape\Large\jrnlday@ante\pagedate\jrnlday@post\\}
+\newcommand{\jrnl@chapstyle}{\filcenter\monthheadfont\Huge\textsc}
+%    \end{macrocode}
+%
+%
+% \marginpar{Define journal environment}
+%
+%    \begin{macrocode}
+\newcounter{jrnlstartmonth}
+\newcounter{jrnlstartday}
+\define@key{jrnl}{startmonth}{\setcounter{jrnlstartmonth}{#1}\addtocounter{jrnlstartmonth}{-1}}
+\define@key{jrnl}{startday}{\setcounter{jrnlstartday}{#1}\addtocounter{jrnlstartday}{-1}}
+
+\newenvironment{journal}[1][]%
+{%
+\setcounter{jrnlstartmonth}{0}%
+\setcounter{jrnlstartday}{0}%
+\setkeys{jrnl}{#1}%
+\setcounter{jrnlstartchapter}{\thechapter}
+\addtocounter{jrnlmonth}{\thejrnlstartmonth}
+
+\titleformat{\chapter}[block]
+  {\vfill}
+  {}{0pt}
+  {\jrnl@chapstyle}
+  [\vfill\vfill]
+
+\if@jrnl@fancytabs
+  % Tune section headings and use tabs
+  % I'd like that to go inside the devotional environment
+  \fancytabsHeight{1.2in}
+  % WITHOUT BLEED
+  % 6*1.2 + 2*0.6 + 5*0.12 = 9
+  %\fancytabsTop{0.6in}
+  %\fancytabsGap{0.12in}
+  % WITH BLEED
+  % 6*1.2 + 2*0.725 + 5*0.12 = 9.25
+  \fancytabsTop{0.725in}
+  \fancytabsGap{0.12in}
+  
+  % WITHOUT BLEED
+  % \fancytabsWidth{0.40in}
+  % WITH BLEED
+  % Add 0.125 for the bleed
+  \fancytabsWidth{0.525in}
+  % Put text more inside
+  % (0.4/2)/0.525 = 0.38
+  \fancytabsTextVPos{0.5}
+  \fancytabsTextHPos{0.38}
+  
+  % Set floor for tabs based on starting chapter
+  %\fancytabsFloor{\thejrnlstartchapter}
+  
+  % Set tabs text style
+  % The original version uses uppercase
+  %\fancytabsStyle{\Large\MakeUppercase}
+  \fancytabsStyle{\normalfont\LARGE\scshape}
+
+  \newcommand{\jrnl@fancytab}{%
+    \ifthenelse{\isodd{\thepage}}%
+      {\fancytab{\jrnl@curmonth}{\thejrnlmonth}}%
+      {}%
+  }
+\else
+  \newcommand{\jrnl@fancytab}{}% 
+\fi
+
+\titleformat{\section}[display]
+  {\jrnl@secstyle} % format
+  {\jrnl@seclbl} % label
+  {\jrnldaysepskip} %sep
+  {\jrnl@fancytab%
+   \jrnl@titlestrut\filcenter} %before
+  [\vspace{\jrnldayafterskip}] %after
+
+\titlespacing{\section}{0pt}{*}{-3pt}
+
+} % end of \begin{devotional}
+{} % end of \end{devotional}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput

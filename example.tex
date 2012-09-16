@@ -1,0 +1,43 @@
+\documentclass[monthpages,fancytabs]{scrjrnl}
+
+\usepackage[french]{babel}
+%\usepackage{moredatetime}
+\let\scrjrnlformatdate\formatdate
+\setcounter{jrnlyear}{2012}
+\usepackage{lipsum}
+\usepackage{hyperref}
+
+\begin{document}
+
+% Start on the 12th of march
+\begin{journal}[startmonth=3,startday=12]
+
+\jrnlmonth
+
+\jrnlday{First day}
+
+\lipsum[1]
+
+\jrnlday[post={, matin}]{Another day}
+
+\lipsum[1]
+
+\jrnlday[day=13,post={, soir},ante={Journ\'ee du\ }]{Another day, night}
+
+\lipsum[1]
+
+\jrnlday{14th day}
+
+\lipsum[1]
+
+% Switch to the 5th of october
+\jrnlmonth[month=10,startday=5]
+
+\jrnlday{First day of second month}
+
+\lipsum[1]
+
+
+\end{journal}
+
+\end{document}
