@@ -2,7 +2,7 @@ CTANUPLOAD=ctanupload
 
 CONTRIBUTION  = scrjrnl
 VERSION       = v0.1
-SUMMARY       = A class to typeset diaries or journal
+SUMMARY       = A class to typeset diaries or journals
 NAME          = Raphaël Pinson
 EMAIL         = raphink@gmail.com
 DIRECTORY     = /macros/latex/contrib/$(CONTRIBUTION)
