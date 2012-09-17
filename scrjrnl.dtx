@@ -163,7 +163,14 @@
 %
 % \subsection{Index}
 %
-% Write here about generating a nice index.
+% When typesetting a journal, you might want to rely only on day entries
+% to relate to pages and turn off completely page numbers by using
+% an \texttt{empty} page style.
+%
+% In this situation, if you have to create an index, you might want index entries
+% to link to dates in the journal rather than page numbers.
+%
+% The \textsf{scrjrnl} class records page numbers in macros for every day entry so they can be used to generate an index. The macros are named \verb!jrnlpagedate\thepage!, with the page number corresponding to the entry.
 %
 % \StopEventually{}
 %
