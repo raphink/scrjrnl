@@ -293,7 +293,7 @@
 % \marginpar{Define jrnlday}
 %
 %    \begin{macrocode}
-\newcommand{\pagedate}{%
+\newcommand{\jrnl@pagedate}{%
   \jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
 }
 \define@key{jrnlday}{day}{\setcounter{jrnlday}{#1}\addtocounter{jrnlday}{-1}}
@@ -328,7 +328,9 @@
 %    \begin{macrocode}
 \newcommand\jrnl@titlestrut{\vrule height 25pt width0pt\relax}
 \newcommand{\jrnl@secstyle}{\filcenter\dayheadfont\huge}
-\newcommand{\jrnl@seclbl}{\raggedright\normalfont\scshape\Large\jrnlday@ante\pagedate\jrnlday@post\\}
+\newcommand{\jrnl@seclblstyle}{\raggedright\normalfont\scshape\Large}
+\newcommand{\jrnl@seclbl}{\jrnl@seclblstyle\jrnlday@ante\jrnl@pagedate\jrnlday@post\\}
+
 \newcommand{\jrnl@chapstyle}{\filcenter\monthheadfont\Huge\textsc}
 %    \end{macrocode}
 %
