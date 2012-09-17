@@ -1,4 +1,5 @@
-\documentclass[monthpages,fancytabs]{scrjrnl}
+\documentclass[monthpages,fancytabs,
+               paper=6.25in:9.25in,pagesize=pdftex]{scrjrnl}
 
 \usepackage[french]{babel}
 %\usepackage{moredatetime}
@@ -10,7 +11,19 @@
 \begin{document}
 
 % Start on the 12th of march
-\begin{journal}[startmonth=3,startday=12]
+\begin{journal}[startmonth=1,startday=12,bleed=0.125in]
+
+\makeatletter
+Paperheight is \the\paperheight
+
+Bleed is \the\jrnl@bleed
+
+FancytabsGap is \the\tab@gap
+
+FancytabsHeight is \the\tab@height
+
+FancytabsTop is \the\tab@top
+\makeatother
 
 \jrnlmonth
 
@@ -28,6 +41,16 @@
 
 \jrnlday{14th day}
 
+\lipsum[1]
+
+\jrnlmonth
+
+\jrnlday{First day}
+\lipsum[1]
+
+\jrnlmonth[month=6]
+
+\jrnlday{First day}
 \lipsum[1]
 
 % Switch to the 5th of october

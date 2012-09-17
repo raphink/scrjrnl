@@ -236,7 +236,7 @@
 %
 %    \begin{macrocode}
 \if@jrnl@fancytabs
-  \RequirePackage{fancytabs}
+\RequirePackage{fancytabs}[2012/09/17]
 \fi
 %    \end{macrocode}
 %
@@ -342,6 +342,8 @@
 \newcounter{jrnlstartday}
 \define@key{jrnl}{startmonth}{\setcounter{jrnlstartmonth}{#1}\addtocounter{jrnlstartmonth}{-1}}
 \define@key{jrnl}{startday}{\setcounter{jrnlstartday}{#1}\addtocounter{jrnlstartday}{-1}}
+\newlength{\jrnl@bleed}
+\define@key{jrnl}{bleed}{\setlength{\jrnl@bleed}{#1}}
 
 \newenvironment{journal}[1][]%
 {%
@@ -358,35 +360,41 @@
   [\vfill\vfill]
 
 \if@jrnl@fancytabs
-  % Tune section headings and use tabs
-  % I'd like that to go inside the devotional environment
-  \fancytabsHeight{1.2in}
-  % WITHOUT BLEED
-  % 6*1.2 + 2*0.6 + 5*0.12 = 9
-  %\fancytabsTop{0.6in}
-  %\fancytabsGap{0.12in}
-  % WITH BLEED
-  % 6*1.2 + 2*0.725 + 5*0.12 = 9.25
-  \fancytabsTop{0.725in}
-  \fancytabsGap{0.12in}
+  % We know \paperheight and bleed
+  % Calculation base:
+  % 6*fancytabsHeight+2*fancytabsTop+5*fancytabsGap = paperheight
+  % fancytabsHeight = 10*fancytabsGap
+  % fancytabsTop = 5*fancytabsGap + 2*bleed
+
+  % Calculate \calcfancytabsGap as (\the\paperheight-2*bleed)/75
+  \newlength{\calcfancytabsGap}
+  \pgfmathsetlength{\calcfancytabsGap}{\the\paperheight-2*\the\jrnl@bleed)/75}
+  \fancytabsGap{\the\calcfancytabsGap}
+
+  % Calculate \calcfancytabsHeight as 10*\calcfancytabsGap
+  \newlength{\calcfancytabsHeight}
+  \pgfmathsetlength{\calcfancytabsHeight}{10*\calcfancytabsGap}
+  \fancytabsHeight{\the\calcfancytabsHeight}
+
+  % Calculate \calcfancytabsTop as (5*\calcfancytabsGap+2\jrnl@bleed)
+  \newlength{\calcfancytabsTop}
+  \pgfmathsetlength{\calcfancytabsTop}{5*\calcfancytabsGap+2*\the\jrnl@bleed}
+  \fancytabsTop{\the\calcfancytabsTop}
+
+  % Calculate \fancytabsWidth, without bleed
+  \newlength{\calcfancytabsWidth}
+  \pgfmathsetlength{\calcfancytabsWidth}{\the\paperwidth/12}
   
-  % WITHOUT BLEED
-  % \fancytabsWidth{0.40in}
-  % WITH BLEED
-  % Add 0.125 for the bleed
-  \fancytabsWidth{0.525in}
-  % Put text more inside
-  % (0.4/2)/0.525 = 0.38
+  % Calculate \fancytabsWidthBleed, with bleed
+  \newlength{\calcfancytabsWidthBleed}
+  \pgfmathsetlength{\calcfancytabsWidthBleed}{\the\calcfancytabsWidth+\the\jrnl@bleed}
+  \fancytabsWidth{\the\calcfancytabsWidthBleed}
+
   \fancytabsTextVPos{0.5}
-  \fancytabsTextHPos{0.38}
-  
-  % Set floor for tabs based on starting chapter
-  %\fancytabsFloor{\thejrnlstartchapter}
-  
-  % Set tabs text style
-  % The original version uses uppercase
-  %\fancytabsStyle{\Large\MakeUppercase}
-  \fancytabsStyle{\normalfont\LARGE\scshape}
+  % Put text more inside
+  % \fancytabsTextHPos = (\fancytabsWidth/2)/\fancytabsWidthBleed
+  \pgfmathsetmacro{\calcfancytabsTextHPos}{(\the\calcfancytabsWidth/2)/(\the\calcfancytabsWidthBleed)}
+  \fancytabsTextHPos{\calcfancytabsTextHPos}
 
   \newcommand{\jrnl@fancytab}{%
     \ifthenelse{\isodd{\thepage}}%
