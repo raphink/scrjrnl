@@ -191,6 +191,8 @@
 \DeclareOption{monthpages}{\@jrnl@monthpagestrue}
 \newif\if@jrnl@fancytabs
 \DeclareOption{fancytabs}{\@jrnl@fancytabstrue}
+\newif\if@jrnl@cleardaypages
+\DeclareOption{cleardaypages}{\@jrnl@cleardaypagestrue}
 \ProcessOptions\relax
 \LoadClass{\jrnl@class}
 \RequirePackage{titlesec}
@@ -305,6 +307,9 @@
   \def\jrnlday@post{}%
   \setkeys{jrnlday}{#1}%
   \stepcounter{jrnlday}%
+  \if@jrnl@cleardaypages
+  \cleardoublepage
+  \fi
   \newpage\section{#2}%
   % TODO: provide index macros to be used with jrnlpagedate\thepage
   \expandafter\xdef\csname jrnlpagedate\thepage\endcsname{%
