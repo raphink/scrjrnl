@@ -203,6 +203,7 @@
 %    \begin{macrocode}
 \AfterPackage!{babel}{\RequirePackage{datetime}}
 \newcommand\jrnlformatdate\formatdateny
+\newcommand\jrnlformatindexdate\formatdateny
 %    \end{macrocode}
 %
 % \marginpar{More datetime}
@@ -256,6 +257,7 @@
 \newcounter{jrnlday}
 \newcounter{jrnlmonth}
 \newcounter{jrnlyear}
+\newcounter{jrnltotalday}
 %    \end{macrocode}
 %
 % \marginpar{HTML hooks for TeX4HT}
@@ -307,13 +309,14 @@
   \def\jrnlday@post{}%
   \setkeys{jrnlday}{#1}%
   \stepcounter{jrnlday}%
+  \stepcounter{jrnltotalday}%
   \if@jrnl@cleardaypages
   \cleardoublepage
   \fi
   \newpage\section{#2}%
   % TODO: provide index macros to be used with jrnlpagedate\thepage
-  \expandafter\xdef\csname jrnlpagedate\thepage\endcsname{%
-    \noexpand\jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
+  \expandafter\xdef\csname jrnldaydate\thejrnltotalday\endcsname{%
+    \noexpand\jrnlformatindexdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
 }%
   \HTMLsecHook{\jrnlday@ante\jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}\jrnlday@post}{#2}%
 }
