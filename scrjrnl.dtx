@@ -121,7 +121,7 @@
 %
 % The day in which to start the journal. Defaults to 1.
 %
-% \subsection{Setting up a month}
+% \subsection{Typesetting months}
 %
 % Once the \texttt{journal} environment in initiated, you can use
 % the \texttt{jrnlmonth} and \texttt{jrnlday} commands
@@ -157,10 +157,6 @@
 %
 % Add a text after the date.
 %
-% \subsection{Settings}
-%
-% You can tune the behavior of this class in various ways.
-%
 % \subsection{Index}
 %
 % When typesetting a journal, you might want to rely only on day entries
@@ -170,7 +166,36 @@
 % In this situation, if you have to create an index, you might want index entries
 % to link to dates in the journal rather than page numbers.
 %
-% The \textsf{scrjrnl} class records page numbers in macros for every day entry so they can be used to generate an index. The macros are named \verb!jrnlpagedate\thepage!, with the page number corresponding to the entry.
+% The \textsf{scrjrnl} class records each typeset day in macros so they can be used to generate an index. The macros are named \verb!jrnldaydate\thejrnlday!, with the page day corresponding to the entry, numbered from the first typeset day in the journal.
+%
+% Below is an example of an index generated using the \textsf{bibleref} package, and linking to journal entries instead of pages:
+%
+% \begin{verbatim}
+%% Index by day
+\renewcommand*{\bvidxpgformat}{transform}
+
+%% Get the date for the recorded day
+\newcommand\getdaydate[1]{\csname jrnldaydate#1\endcsname}
+
+%% Go through index items
+\newcommand{\transform}[1]{%
+  \def\secondparam{0}%
+  \forcsvlist\decodesec{#1}}
+\newcommand{\decodesec}[1]{%
+  \ifthenelse{\secondparam=1}{, }{}%
+  \mbox{\textsc{\getdaydate{#1}}}
+  \def\secondparam{1}}
+
+%% Patch imakeidx to map journal entry instead of page
+\makeatletter
+\patchcmd{\@index}{\@wrindex}{\@Wrindex}{}{}
+\let\@Wrindex\@wrindex
+\patchcmd{\@Wrindex}{\thepage}{\thejrnltotalday}{}{}
+\let\protected@iwrite\protected@write
+\patchcmd{\protected@iwrite}{\write}{\immediate\write}{}{}
+\patchcmd{\@Wrindex}{\protected@write}{\protected@iwrite}{}{}
+\makeatother
+% \end{verbatim}
 %
 % \StopEventually{}
 %
