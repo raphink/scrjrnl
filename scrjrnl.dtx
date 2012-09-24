@@ -172,29 +172,29 @@
 %
 % \begin{verbatim}
 %% Index by day
-\renewcommand*{\bvidxpgformat}{transform}
-
+%\renewcommand*{\bvidxpgformat}{transform}
+%
 %% Get the date for the recorded day
-\newcommand\getdaydate[1]{\csname jrnldaydate#1\endcsname}
-
+%\newcommand\getdaydate[1]{\csname jrnldaydate#1\endcsname}
+%
 %% Go through index items
-\newcommand{\transform}[1]{%
-  \def\secondparam{0}%
-  \forcsvlist\decodesec{#1}}
-\newcommand{\decodesec}[1]{%
-  \ifthenelse{\secondparam=1}{, }{}%
-  \mbox{\textsc{\getdaydate{#1}}}
-  \def\secondparam{1}}
-
+%\newcommand{\transform}[1]{%
+%  \def\secondparam{0}%
+%  \forcsvlist\decodesec{#1}}
+%\newcommand{\decodesec}[1]{%
+%  \ifthenelse{\secondparam=1}{, }{}%
+%  \mbox{\textsc{\getdaydate{#1}}}
+%  \def\secondparam{1}}
+%
 %% Patch imakeidx to map journal entry instead of page
-\makeatletter
-\patchcmd{\@index}{\@wrindex}{\@Wrindex}{}{}
-\let\@Wrindex\@wrindex
-\patchcmd{\@Wrindex}{\thepage}{\thejrnltotalday}{}{}
-\let\protected@iwrite\protected@write
-\patchcmd{\protected@iwrite}{\write}{\immediate\write}{}{}
-\patchcmd{\@Wrindex}{\protected@write}{\protected@iwrite}{}{}
-\makeatother
+%\makeatletter
+%\patchcmd{\@index}{\@wrindex}{\@Wrindex}{}{}
+%\let\@Wrindex\@wrindex
+%\patchcmd{\@Wrindex}{\thepage}{\thejrnltotalday}{}{}
+%\let\protected@iwrite\protected@write
+%\patchcmd{\protected@iwrite}{\write}{\immediate\write}{}{}
+%\patchcmd{\@Wrindex}{\protected@write}{\protected@iwrite}{}{}
+%\makeatother
 % \end{verbatim}
 %
 % \StopEventually{}
