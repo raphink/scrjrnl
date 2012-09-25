@@ -336,7 +336,7 @@
   \stepcounter{jrnlday}%
   \stepcounter{jrnltotalday}%
   \if@jrnl@cleardaypages
-  \cleardoublepage
+  \if@openright\cleardoublepage\else\clearpage\fi
   \fi
   \newpage\section{#2}%
   % TODO: provide index macros to be used with jrnlpagedate\thepage
