@@ -341,7 +341,7 @@
   \newpage\section{#2}%
   % TODO: provide index macros to be used with jrnlpagedate\thepage
   \expandafter\xdef\csname jrnldaydate\thejrnltotalday\endcsname{%
-    \noexpand\jrnlformatindexdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}%
+    \jrnlday@ante\noexpand\jrnlformatindexdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}\jrnlday@post%
 }%
   \HTMLsecHook{\jrnlday@ante\jrnlformatdate{\thejrnlday}{\thejrnlmonth}{\thejrnlyear}\jrnlday@post}{#2}%
 }
